@@ -1,25 +1,23 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { TSingUpSchema, singUpSchema } from "../types/types";
 
 export function Form() {
   const [output, setOutput] = useState('');
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
     reset,
-    getValues
-  } = useForm();
+    formState: { errors, isSubmitting }
+  } = useForm<TSingUpSchema>({
+    resolver: zodResolver(singUpSchema)
+  });
 
-  async function onSubmit(data: FieldValues) {
-    console.log(getValues('name')); 
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log(data);
-    setOutput(JSON.stringify(data, null, 2));
-        
+  async function onSubmit(data: TSingUpSchema) {
+    await new Promise(resolve => setTimeout(resolve, 2000));
     reset();
+    setOutput(JSON.stringify(data, null, 2));
   }
   
   return (
@@ -27,10 +25,8 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="name">Name</label>
         <input
-          defaultValue={'Test Name'}
-          {...register('name', {
-            required: 'Your name is required!'
-          })}
+          // defaultValue={'Test Name'}
+          {...register('name')}
           type="name"
           id="name"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
@@ -43,14 +39,8 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="email">E-mail</label>
         <input
-          defaultValue={'test@email.com'}
-          {...register('email', {
-            required: 'E-mail required!',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address"
-            }
-          })}
+          // defaultValue={'test@email.com'}
+          {...register('email')}
           id="email"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
         />
@@ -62,14 +52,8 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="password">Password</label>
         <input
-          defaultValue={'00000000'}
-          {...register('password', {
-            required: 'Password required!',
-            minLength: {
-              value: 8,
-              message: 'Password must be at least 8 characters.'
-            },
-          })}
+          // defaultValue={'test123456'}
+          {...register('password')}
           type="password"
           id="password"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
@@ -78,21 +62,32 @@ export function Form() {
           <span className="opacity-90 text-red-500/80 text-sm">{`${errors.password.message}`}</span>
         }
       </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="confirmPassword">Confirm password</label>
+        <input
+          // defaultValue={'test123456'}
+          {...register('confirmPassword')}
+          type="password"
+          id="confirmPassword"
+          className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
+        />
+        {errors.confirmPassword &&
+          <span className="opacity-90 text-red-500/80 text-sm">{`${errors.confirmPassword.message}`}</span>
+        }
+      </div>
       
       <div className="flex flex-col gap-1">
         <label htmlFor="animal">Favorite animal</label>
         
         <select
-          {...register('animal', {
-            validate: value =>
-              value == 'cat' || `Your favorite animal must be cat, not ${value}!`
-          })}
+          {...register('animal')}
           id="animal"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
         >
           <option value="unicorn">Unicorn</option>
           <option value="cat">Cat</option>
-          <option value="dog" defaultChecked>Dog</option>
+          <option value="dog">Dog</option>
           <option value="hamster">Hamster</option>
         </select>
 
@@ -104,12 +99,10 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <div className="flex flex-row">
           <input
+            {...register('terms')}
             type="checkbox"
-            id="terms"
-            {...register('terms', {
-              required: 'You need to accept the terms to submit' 
-            })}
             tabIndex={-1}
+            id="terms"
             className="absolute opacity-0 w-6 h-6 cursor-pointer peer"
           />
           <label htmlFor="terms" className="after:flex after:justify-center peer-checked:after:content-['✓'] border-slate-700 bg-slate-800 peer-checked:bg-violet-600 p-0 border rounded w-6 h-6 after:h-6 font-bold cursor-pointer after" tabIndex={0}/>
