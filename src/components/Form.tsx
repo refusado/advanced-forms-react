@@ -27,6 +27,7 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="name">Name</label>
         <input
+          defaultValue={'Test Name'}
           {...register('name', {
             required: 'Your name is required!'
           })}
@@ -42,7 +43,7 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="email">E-mail</label>
         <input
-          id="email"
+          defaultValue={'test@email.com'}
           {...register('email', {
             required: 'E-mail required!',
             pattern: {
@@ -50,6 +51,7 @@ export function Form() {
               message: "Invalid email address"
             }
           })}
+          id="email"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
         />
         {errors.email &&
@@ -60,16 +62,16 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="password">Password</label>
         <input
-          type="password"
-          id="password"
+          defaultValue={'00000000'}
           {...register('password', {
             required: 'Password required!',
             minLength: {
               value: 8,
               message: 'Password must be at least 8 characters.'
             },
-
           })}
+          type="password"
+          id="password"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
         />
         {errors.password &&
@@ -81,16 +83,16 @@ export function Form() {
         <label htmlFor="animal">Favorite animal</label>
         
         <select
-          id="animal"
           {...register('animal', {
             validate: value =>
               value == 'cat' || `Your favorite animal must be cat, not ${value}!`
           })}
+          id="animal"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
         >
           <option value="unicorn">Unicorn</option>
           <option value="cat">Cat</option>
-          <option value="dog">Dog</option>
+          <option value="dog" defaultChecked>Dog</option>
           <option value="hamster">Hamster</option>
         </select>
 
@@ -123,7 +125,7 @@ export function Form() {
       <button
         disabled={isSubmitting}
         type="submit"
-        className="bg-violet-600 enabled:hover:bg-violet-700 disabled:opacity-60 px-8 py-1 rounded h-10 font-semibold duration-150 cursor-pointer disabled:cursor-default self-end"
+        className="bg-violet-600 enabled:hover:bg-violet-700 disabled:opacity-60 px-8 py-1 rounded h-10 font-semibold duration-150 cursor-default enabled:cursor-pointer self-end"
       >
         {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>
