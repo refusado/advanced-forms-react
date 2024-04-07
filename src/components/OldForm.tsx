@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TSingUpSchema, singUpSchema } from "../types/types";
 
-export function Form() {
+export function OldForm() {
   const [output, setOutput] = useState('');
   const {
     register,
@@ -25,9 +25,8 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="name">Name</label>
         <input
-          // defaultValue={'Test Name'}
           {...register('name')}
-          type="name"
+          type="text"
           id="name"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
         />
@@ -39,7 +38,6 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="email">E-mail</label>
         <input
-          // defaultValue={'test@email.com'}
           {...register('email')}
           id="email"
           className="border-slate-700 bg-slate-800 shadow-md px-2 border rounded h-10"
@@ -52,7 +50,6 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="password">Password</label>
         <input
-          // defaultValue={'test123456'}
           {...register('password')}
           type="password"
           id="password"
@@ -66,7 +63,6 @@ export function Form() {
       <div className="flex flex-col gap-1">
         <label htmlFor="confirmPassword">Confirm password</label>
         <input
-          // defaultValue={'test123456'}
           {...register('confirmPassword')}
           type="password"
           id="confirmPassword"
