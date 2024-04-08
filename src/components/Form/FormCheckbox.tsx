@@ -1,10 +1,10 @@
 import { LabelHTMLAttributes } from "react";
 
-interface CustomCheckboxProps extends LabelHTMLAttributes<HTMLLabelElement> {
+interface CheckboxProps extends LabelHTMLAttributes<HTMLLabelElement> {
   label: string
 }
 
-export function CustomCheckbox(props: CustomCheckboxProps) {
+export function FormCheckbox(props: CheckboxProps) {
   return (
     <>
       <input

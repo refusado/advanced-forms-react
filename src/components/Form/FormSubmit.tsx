@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 
 interface SubmitProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export function Submit(props: SubmitProps) {
+export function FormSubmit(props: SubmitProps) {
   return (
     <button 
       type="submit"

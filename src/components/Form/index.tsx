@@ -1,17 +1,17 @@
-import { CustomCheckbox } from "./CustomCheckbox";
-import { ErrorMessage } from "./ErrorMessage";
-import { Field } from "./Field";
-import { Input } from "./Input";
-import { Label } from "./Label";
-import { Selector } from "./Selector";
-import { Submit } from "./Submit";
+import { FormCheckbox } from "./FormCheckbox";
+import { FormErrorMessage } from "./FormErrorMessage";
+import { FormField } from "./FormField";
+import { FormInput } from "./FormInput";
+import { FormLabel } from "./FormLabel";
+import { FormSelector } from "./FormSelector";
+import { FormSubmit } from "./FormSubmit";
 
 export const Form = {
-  Field,
-  Label,
-  CustomCheckbox,
-  Input,
-  Selector,
-  ErrorMessage,
-  Submit
+  Field: FormField,
+  Label: FormLabel,
+  Checkbox: FormCheckbox,
+  Input: FormInput,
+  Selector: FormSelector,
+  ErrorMessage: FormErrorMessage,
+  Submit: FormSubmit
 }
