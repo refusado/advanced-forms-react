@@ -22,34 +22,35 @@ export function SignUpForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="relative flex flex-col gap-4 w-full">
         <h2 className="mb-2 text-4xl">Sign up</h2>
 
-        <Form.Field>
-          <Form.Label fieldName="name">Name</Form.Label>
-          <Form.Input type="text" fieldName="name" />
-          <Form.ErrorMessage fieldName="name" />
+        <Form.Field fieldName="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Input type="text" />
+          <Form.ErrorMessage />
         </Form.Field>
 
-        <Form.Field>
-          <Form.Label fieldName="email">E-mail</Form.Label>
-          <Form.Input type="email" fieldName="email" />
-          <Form.ErrorMessage fieldName="email" />
+        <Form.Field fieldName="email">
+          <Form.Label>E-mail</Form.Label>
+          <Form.Input type="email" />
+          <Form.ErrorMessage />
         </Form.Field>
 
-        <Form.Field>
-          <Form.Label fieldName="password">Password</Form.Label>
-          <Form.Input type="password" fieldName="password" />
-          <Form.ErrorMessage fieldName="password" />
+        <Form.Field fieldName="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Input type="password" />
+          <Form.ErrorMessage />
         </Form.Field>
 
-        <Form.Field>
-          <Form.Label fieldName="confirmPassoword">Confirm password</Form.Label>
-          <Form.Input type="password" fieldName="confirmPassword" />
-          <Form.ErrorMessage fieldName="confirmPassword" />
+        <Form.Field fieldName="confirmPassoword">
+          <Form.Label>Confirm password</Form.Label>
+          <Form.Input type="password" />
+          <Form.ErrorMessage />
         </Form.Field>
 
-        <Form.Field>
-          <Form.Label fieldName="animal">Favorite Animal</Form.Label>
+        <Form.Input type="number" fieldName="age"/>
+
+        <Form.Field fieldName="animal">
+          <Form.Label>Favorite Animal</Form.Label>
           <Form.Selector
-            fieldName="animal" 
             options={[
               {name: 'unicorn', label: 'Unicorn'},
               {name: 'cat', label: 'Cat'},
@@ -57,15 +58,15 @@ export function SignUpForm() {
               {name: 'hamster', label: 'Hamster'}
             ]}
           />
-          <Form.ErrorMessage fieldName="animal" />
+          <Form.ErrorMessage />
         </Form.Field>
 
-        <Form.Field className="flex flex-row flex-wrap gap-2">
-          <Form.Checkbox fieldName="terms" />
-          <Form.Label fieldName="terms">
+        <Form.Field fieldName="terms" className="flex flex-row flex-wrap gap-2">
+          <Form.Checkbox />
+          <Form.Label>
             I agree to the terms of use and privacy policy.
           </Form.Label>
-          <Form.ErrorMessage fieldName="terms" />
+          <Form.ErrorMessage />
         </Form.Field>
         
         <Form.Submit disabled={isSubmitting}>
