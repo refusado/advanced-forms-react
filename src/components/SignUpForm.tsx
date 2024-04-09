@@ -23,48 +23,49 @@ export function SignUpForm() {
         <h2 className="mb-2 text-4xl">Sign up</h2>
 
         <Form.Field>
-          <Form.Label htmlFor="name">Name</Form.Label>
-          <Form.Input type="text" name="name" />
-          <Form.ErrorMessage field="name" />
+          <Form.Label fieldName="name">Name</Form.Label>
+          <Form.Input type="text" fieldName="name" />
+          <Form.ErrorMessage fieldName="name" />
         </Form.Field>
 
         <Form.Field>
-          <Form.Label htmlFor="email">E-mail</Form.Label>
-          <Form.Input type="email" name="email" />
-          <Form.ErrorMessage field="email" />
+          <Form.Label fieldName="email">E-mail</Form.Label>
+          <Form.Input type="email" fieldName="email" />
+          <Form.ErrorMessage fieldName="email" />
         </Form.Field>
 
         <Form.Field>
-          <Form.Label htmlFor="password">Password</Form.Label>
-          <Form.Input type="password" name="password" />
-          <Form.ErrorMessage field="password" />
+          <Form.Label fieldName="password">Password</Form.Label>
+          <Form.Input type="password" fieldName="password" />
+          <Form.ErrorMessage fieldName="password" />
         </Form.Field>
 
         <Form.Field>
-          <Form.Label htmlFor="confirmPassoword">Confirm password</Form.Label>
-          <Form.Input type="password" name="confirmPassword" />
-          <Form.ErrorMessage field="confirmPassword" />
+          <Form.Label fieldName="confirmPassoword">Confirm password</Form.Label>
+          <Form.Input type="password" fieldName="confirmPassword" />
+          <Form.ErrorMessage fieldName="confirmPassword" />
         </Form.Field>
 
         <Form.Field>
-          <Form.Label htmlFor="animal">Favorite Animal</Form.Label>
-          <Form.Selector name="animal">
-            <option value="unicorn">Unicorn</option>
-            <option value="cat">Cat</option>
-            <option value="dog">Dog</option>
-            <option value="hamster">Hamster</option>
-          </Form.Selector>
-          <Form.ErrorMessage field="animal" />
+          <Form.Label fieldName="animal">Favorite Animal</Form.Label>
+          <Form.Selector
+            fieldName="animal" 
+            options={[
+              {name: 'unicorn', label: 'Unicorn'},
+              {name: 'cat', label: 'Cat'},
+              {name: 'dog', label: 'Dog'},
+              {name: 'hamster', label: 'Hamster'}
+            ]}
+          />
+          <Form.ErrorMessage fieldName="animal" />
         </Form.Field>
 
-        <Form.Field>
-          <div className="flex flex-row gap-2">
-            <Form.Checkbox name="terms" />
-            <label htmlFor="terms" className="select-none">
-              I agree to the terms of use and privacy policy.
-            </label>
-          </div>
-          <Form.ErrorMessage field="terms" />
+        <Form.Field className="flex flex-row flex-wrap gap-2">
+          <Form.Checkbox fieldName="terms" />
+          <Form.Label fieldName="terms">
+            I agree to the terms of use and privacy policy.
+          </Form.Label>
+          <Form.ErrorMessage fieldName="terms" />
         </Form.Field>
         
         <Form.Submit disabled={isSubmitting}>

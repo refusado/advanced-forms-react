@@ -2,18 +2,21 @@ import { HTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface ErrorMessageProps extends HTMLAttributes<HTMLSpanElement> {
-  field: string
+  fieldName: string
 }
 
-export function FormErrorMessage(props: ErrorMessageProps) {
+export function FormErrorMessage({ fieldName, ...rest }: ErrorMessageProps) {
   const { formState: { errors } } = useFormContext();
 
   return (
-    <span
-      className="opacity-90 text-red-500/80 text-sm"
-      {...props}
-    >
-      {errors[props.field]?.message?.toString()}
-    </span>
+    errors[fieldName] && (
+      <span
+        className="opacity-90 text-red-500/80 text-sm"
+        role="alert"
+        {...rest}
+      >
+        {errors[fieldName]?.message?.toString()}
+      </span>
+    )
   )
 }

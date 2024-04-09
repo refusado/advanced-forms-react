@@ -1,9 +1,15 @@
 import { LabelHTMLAttributes } from "react";
 
-interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {}
+interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+  fieldName: string
+}
 
-export function FormLabel(props: LabelProps) {
+export function FormLabel({ fieldName, ...rest }: LabelProps) {
   return (
-    <label className="text-slate-300" {...props} />
+    <label
+      htmlFor={fieldName}
+      className="text-slate-300"
+      {...rest}
+    />
   )
 }
