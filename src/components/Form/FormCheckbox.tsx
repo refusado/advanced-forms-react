@@ -1,11 +1,12 @@
 import { LabelHTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 
 interface CheckboxProps extends LabelHTMLAttributes<HTMLLabelElement> {
   fieldName?: string
 }
 
-export function FormCheckbox({ fieldName, ...rest }: CheckboxProps) {
+export function FormCheckbox({ fieldName, className, ...rest }: CheckboxProps) {
   const { register, formState: { errors } } = useFormContext();
 
   if (!fieldName) throw new Error('FormCheckbox component must have a fieldName property');
@@ -24,7 +25,7 @@ export function FormCheckbox({ fieldName, ...rest }: CheckboxProps) {
       <label
         htmlFor={fieldName}
         tabIndex={0}
-        className="inline-flex justify-center items-center after:content-['✓'] border-slate-700 bg-slate-800 peer-checked:bg-violet-600 p-0 border rounded w-6 h-6 after:h-6 font-bold text-transparent peer-checked:text-inherit cursor-pointer"
+        className={twMerge("inline-flex justify-center items-center after:content-['✓'] border-slate-700 bg-slate-800 peer-checked:bg-violet-600 p-0 border rounded w-6 h-6 after:h-6 font-bold text-transparent peer-checked:text-inherit cursor-pointer", className)}
         {...rest}
       />
     </>
