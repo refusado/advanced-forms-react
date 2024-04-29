@@ -28,3 +28,10 @@ export const singUpSchema = z.object({
 });
 
 export type TSingUpSchema = z.infer<typeof singUpSchema>;
+
+
+// blank schema for testing purpose
+
+export const blankSingUpSchema = z.object({});
+
+export type TBlankSingUpSchema = z.infer<typeof blankSingUpSchema>;

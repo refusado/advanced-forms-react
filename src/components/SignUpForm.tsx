@@ -2,7 +2,7 @@
 
 import { Form } from "./Form";
 import { FormProvider, useForm } from "react-hook-form";
-import { TSingUpSchema, singUpSchema } from "../types/signUpSchema";
+import { TSingUpSchema, blankSingUpSchema, singUpSchema } from "../types/signUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ export function SignUpForm() {
   const [enableServerTest, setEnableServerTest] = useState(true);
 
   const formMethods = useForm<TSingUpSchema>({
-    resolver: enableServerTest && zodResolver(singUpSchema)
+    resolver: zodResolver(enableServerTest ? singUpSchema : blankSingUpSchema)
   });
   const {
     handleSubmit,
