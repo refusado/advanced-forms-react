@@ -1,3 +1,5 @@
+'use client';
+
 import { Form } from "./Form";
 import { FormProvider, useForm } from "react-hook-form";
 import { TSingUpSchema, singUpSchema } from "../types/signUpSchema";
@@ -6,27 +8,53 @@ import { useState } from "react";
 
 export function SignUpForm() {
   const [output, setOutput] = useState('');
+  const [serverFailed, setServerFailed] = useState(false);
+  const [enableServerTest, setEnableServerTest] = useState(true);
 
   const formMethods = useForm<TSingUpSchema>({
-    resolver: zodResolver(singUpSchema)
+    resolver: enableServerTest && zodResolver(singUpSchema)
   });
-  const { handleSubmit, reset, formState: { errors, isSubmitting } } = formMethods;
+  const {
+    handleSubmit,
+    reset,
+    formState: { isSubmitting }
+  } = formMethods;
 
-  async function onSubmit(data: TSingUpSchema) {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log(data.birthday.toLocaleString());
-    setOutput(JSON.stringify(data, null, 2));
-    reset();
-  }
+  async function onSubmit(formData: TSingUpSchema) {
+    setServerFailed(false);
 
-  function test() {
-    console.log(errors);
+    const response = await fetch('/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+      setOutput(JSON.stringify(formData, null, 2));
+      reset();
+      alert('Success!');
+      return;
+    }
+
+    setServerFailed(true);
+    console.error('Submitting form failed');
+    const responseData = await response.json();
+    console.error('Form errors: ', responseData.errors);
   }
 
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onSubmit)} className="relative flex flex-col gap-4 w-full">
         <h2 className="mb-2 text-4xl">Sign up</h2>
+
+        <div 
+          className="flex items-baseline gap-2 cursor-pointer"
+          onClick={() => { setEnableServerTest(prev => !prev); setServerFailed(false) }}>
+          <span className={`block rounded-full size-2 ${enableServerTest ? 'bg-red-500' : 'bg-green-500'}`}></span>
+          <span className="text-sm select-none">disable client-side verification [testing purpose]</span>
+        </div>
 
         <Form.Field fieldName="name">
           <Form.Label>Name</Form.Label>
@@ -79,9 +107,18 @@ export function SignUpForm() {
           <Form.ErrorMessage className="w-full" />
         </Form.Field>
         
-        <Form.Submit onClick={test} disabled={isSubmitting} className="bg-emerald-700">
+        <Form.Submit disabled={isSubmitting} className="bg-emerald-700">
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </Form.Submit>
+
+        {serverFailed && (
+          <>
+            <p className="bg-red-800/30 px-2.5 py-1.5 border border-red-500/60 rounded">
+              An error occurred on the server, reload the page and try again. If the error persists, come back later.
+            </p>
+            <p className="ml-auto text-sm">(watch logs)</p>
+          </>
+        )}
       </form>
 
       {output && (
